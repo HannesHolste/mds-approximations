@@ -13,13 +13,14 @@ class Eigh(Algorithm):
         distance_matrix = distance_matrix.data
 
         # Find eigenvalues and eigenvectors v of distance matrix
-        eigenvalues, eigenvectors = eigh(distance_matrix)
-
         # these are already normalized such that
         # vi'vi = 1 where vi' is the transpose of eigenvector i
-
-        percentages = ((eigenvalues / np.sum(eigenvalues)) * 100)[
-                      :num_dimensions_out]
+        eigenvalues, eigenvectors = eigh(distance_matrix)
 
         # NOTE: numpy produces transpose of Numeric!
-        return eigenvectors.transpose(), eigenvalues, percentages
+        # FIXME clarify meaning of that. Transpose after selecting dimensions?
+        eigenvectors = eigenvectors.transpose()[:, :num_dimensions_out]
+        eigenvalues = eigenvalues[:num_dimensions_out]
+        percentages = ((eigenvalues / np.sum(eigenvalues)) * 100)
+
+        return eigenvectors, eigenvalues, percentages
