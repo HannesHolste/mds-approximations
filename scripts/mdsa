@@ -8,12 +8,14 @@ import numpy as np
 from skbio import DistanceMatrix
 
 from mdsa.algorithm import Algorithm
+from mdsa.algorithms.eigh import Eigh
 from mdsa.algorithms.nystrom import Nystrom
 from mdsa.algorithms.scmds import Scmds
 
 # Register algorithms here
 Algorithm.register(Nystrom())
 Algorithm.register(Scmds())
+Algorithm.register(Eigh())
 
 
 @click.group()
